@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>coferry 的博客</title>
+  <title>Jasonの小窝</title>
   
-  <subtitle>coferry 的博客</subtitle>
+  <subtitle>Jasonの小窝</subtitle>
   <link href="https://freeaas.com/atom.xml" rel="self"/>
   
   <link href="https://freeaas.com/"/>
@@ -10,7 +10,7 @@
   <id>https://freeaas.com/</id>
   
   <author>
-    <name>coferry</name>
+    <name>Jason</name>
     
   </author>
   
