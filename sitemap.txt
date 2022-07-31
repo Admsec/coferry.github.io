@@ -1,5 +1,5 @@
-http://example.com/about/index.html
 http://example.com/categories/index.html
+http://example.com/about/index.html
 http://example.com/link/index.html
 http://example.com/2021/06/15/hello-world/
 http://example.com/2021/07/05/ftp%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AF%B4%E6%98%8E/
