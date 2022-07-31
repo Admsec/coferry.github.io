@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>操作系统安全配置</title>
+      <link href="/2021/08/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"/>
+      <url>/2021/08/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<p><h3>Windows篇</h3><br>   <h3>设置密码策略必须同时满足大小写字母、数字、特殊字符，最小密码长度不少于8个字符，密码最长使用期限为15天。</h3><br>   <p>1.CMD输入secpol.msc进入本地策略安全 2.账户策略>>密码策略</p><br>   <img src="https://c.freeaas.com/blog/windows1.png"><br>    <h3>在用户登录系统时，应该有“For imguthorized users only”提示信息</h3><br>    <p>本地安全策略>>本地策略>>安全选项>>交互式登录</p><br>    <img src="https://c.freeaas.com/blog/windows2.png"><br>    <h3>一分钟内仅允许5次登录失败的尝试，超过5次，登录帐号锁定1分钟</h3><br>    <p>本地安全策略>>本地策略>>账户策略>>账户锁定策略</p><br>    <img src="https://c.freeaas.com/blog/windows3.png"><br>    <h3>设置远程桌面用户非活动会话连接超时应小于等于5分钟</h3><br>    <p>该题有两种解法: <br>解法一：1.gpedit.msc进入组策略编辑器&nbsp; 2.计算机配置>>管理模板>>https://c.freeaas.com/blog/windows组件>>远程桌面服务>>远程桌面会话主机>>会话时间限制<br>解法二：CMD输入tscc.msc进入远程会话主机配置>>RD会话主机配置>>RDP-Tcp属性>>会话，结束已断开的会话—>5分钟，空闲会话限制—>5分钟</p><br>    <b>注意，优先级：本地组策略编辑器的设置 &gt;(大于) 远程桌面会话主机配置的设置，本地组策略编辑器中的优先级：计算机配置 &gt;(大于) 用户配置。解法二在<a href="https://c.freeaas.com/blog/windows">https://c.freeaas.com/blog/windows</a> server2012及以上版本不适用。</b><br>    <img src="https://c.freeaas.com/blog/windows11.png"><br>    <img src="https://c.freeaas.com/blog/windows4.png"><br>    <h3>仅允许超级管理员账号关闭系统</h3><br>    <p>secpol.msc进入本地策略安全，本地策略>>用户权限分配>>关闭系统</p><br>    <img src="https://c.freeaas.com/blog/windows6.png"><br>    <h3>开启IIS的日志审计记录，日志文件保存格式为W3C,只记录日期、时间、客户端IP地址、用户名、服务器端口、方法</h3><br>    <p>进入IIS管理器，网站>>日志。 2.格式>w3c，选择字段>>看题目要求</p><br>    <img src="https://c.freeaas.com/blog/windows7.png"><br>    <h3>设置网站的最大并发连接数为1000，网站连接超时为60s</h3><br>    <p>IIS管理器>>网站>>操作>>限制</p><br>    <img src="https://c.freeaas.com/blog/windows8.png"><br>    <h3>禁用IIS内核缓存，避免对方利用ms15_034漏洞进行DOS攻击，出现蓝屏的现象</h3><br>    <p>IIS管理器>>网站>>输出缓存>>编辑功能设置</p><br>    <img src="https://c.freeaas.com/blog/windows9.png"><br>    <h3>设置user1用户只能在上班时间（周一至周五的9:00~18:00）可以登录</h3><br>    <p>添加并配置域服务 2.创建域，在imgctive Directoty管理中心配置user1登录时间</p><br>    <img src="https://c.freeaas.com/blog/windows10.png"><br>    <h3>拓展</h3><br>    <blockquote>        <p>gpedit.msc>>本地组策略编辑器</p>        <p>secpol.msc>>本地安全策略</p>        <p>msconfig>>系统配置</p>        <p>Tscc.msc>>远程会话主机配置(windows server2012版本或以上已取消此功能)</p>    </blockquote><br>    <h3>Linux篇</h3><br>    <h3>设置最小密码长度不少于8个字符，密码最长使用期限为15天</h3><br>    <p>编辑配置文件login.defs</p><br>    <img src="https://c.freeaas.com/blog/linux1.png"><br>    <h3>设置在用户登录系统时，会有“For imguthorized users only”提示信息</h3><br>    <p>编辑配置文件issue，在新一行写入"For imguthorized users only"</p><br>    <img src="https://c.freeaas.com/blog/linux2.png"><br>    <h3>拓展</h3><br>        <blockquote>        <p>配置文件issue中的提示为本地登录，且是在登录前出现</p>        <img src="https://c.freeaas.com/blog/issue.png">          <p>配置文件motd(系统不自带，需自行在etc下创建)中的提示为本地登录，且是在登录成功后出现</p>        <img src="https://c.freeaas.com/blog/motd.png">          <p>实现ssh登录提示语，需要在ssh的配置文件的bimgnner中添加提示语文件路径才可以实现</p>        <b>提示语文件需自行创建，且提示语是在输入登录账号后呈现</b>        <img src="https://c.freeaas.com/blog/sshd.png">          <p>效果图：<img src="https://c.freeaas.com/blog/banner.png">          </p>        </blockquote><br>    <h3>设置root用户的计划任务。每天早上7:50自动开启vsftpd服务，22点50时关闭；每周六的7:30时，重新启动vsftpd服务</h3><br>    <p>输入crontimgb -e，按照"分钟 小时 天 月 星期 你要执行的命令的"的格式来定时任务</p><br>    <img src="https://c.freeaas.com/blog/linux4.png"><br>    <h3>禁止匿名用户登录vsftpd服务</h3><br>    <img src="https://c.freeaas.com/blog/linux5.png"><br>    <h3>限制客户端连接vsftpd服务时，同一个IP最多只能打开两个连接</h3><br>    <p>在vsftp配置文件中加入以下这句话</p><br>    <img src="https://c.freeaas.com/blog/linux3.png" style="text-align:left"><br>    <h3>禁止root用户通过SSH远程登录</h3><br>    <p>修改ssh配置文件</p><br>    <img src="https://c.freeaas.com/blog/linux7.png"><br>    <h3>禁止mysql服务以管理员权限的账号运行</h3><br>    <p>在my.cnf修改以下内容，或者在mysql数据库输入命令"revoke imgll on *.* from 'root'@'locimglhost';"</p><br>    <img src="https://c.freeaas.com/blog/linux8.png">  </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 网络安全 </tag>
+            
+            <tag> 操作系统服务配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于python</title>
+      <link href="/2021/07/05/%E5%85%B3%E4%BA%8Epython/"/>
+      <url>/2021/07/05/%E5%85%B3%E4%BA%8Epython/</url>
+      
+        <content type="html"><![CDATA[<p>  <h1>说明</h1><br>    <p>这个是以前5月份的时候备考python做的一些题，虽然距离现在有一些日子的，但是那段日子挺值得留念的，就当记录一下吧</p><br>    <h2>水果排序</h2><br>    <b>要求：输入水果名称，对应水果次数+1</b><br>    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">txt = input(&#x27;请输入水果类型：&#x27;)</span><br><span class="line">fruits = txt.split(&quot; &quot;) #以空格为分割点</span><br><span class="line">d = &#123;&#125;  #初始化一个字典</span><br><span class="line">for i in fruits:  #遍历刚刚输入的值</span><br><span class="line">d[i] = d.get(i,0) + 1   #在字典里寻找对应的key值.没有则创建一个key值,key对应的value为0+1</span><br><span class="line">ls = list(d.items())    #将d转化为列表后再用list()</span><br><span class="line">ls.sort(key=lambda x:x[1],reverse=True)</span><br><span class="line">print(ls)</span><br></pre></td></tr></table></figure><br>    <h2>随机输出</h2><br>    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import random</span><br><span class="line">brandlist = [&#x27;三星&#x27;,&#x27;苹果&#x27;,&#x27;OPPO&#x27;,&#x27;小米&#x27;,&#x27;8848钛金手机&#x27;]</span><br><span class="line">random.seed(0)      #输出同一个随机数</span><br><span class="line">name = brandlist[random.randint(0,4)]</span><br><span class="line">print(name)</span><br></pre></td></tr></table></figure><br>    <h2>统计字符数、词数</h2><br>    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import jieba</span><br><span class="line">s = input(&#x27;请输入一个字符串:&#x27;)</span><br><span class="line">n = len(s)</span><br><span class="line">m = len(jieba.lcut(s))</span><br><span class="line">print(&quot;中文字符数为&#123;&#125;,中文词语数为&#123;&#125;&quot;.format(n,m))</span><br></pre></td></tr></table></figure><br>    <h2>服装打折价格</h2><br>    <b>要求：有一件衣服，原价150，买2到3件打9折，买4到9件件打8折，10件或以上6折</b><br>    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">n = eval(input(&#x27;请输入你要购买的数量:&#x27;))   #eval去除&#x27;&#x27;和”“</span><br><span class="line">if n == 1:</span><br><span class="line">    cost = 150</span><br><span class="line">elif n &gt;= 2 and n &lt;= 3:</span><br><span class="line">    cost = int(150*n*0.9)</span><br><span class="line">elif n &gt;=4 and n &lt;= 9:</span><br><span class="line">    cost = int(150*n*0.8)</span><br><span class="line">elif n &gt;= 10:</span><br><span class="line">    cost = int(150*n*0.6)</span><br><span class="line">print(&#x27;衣服价格为&#123;&#125;&#x27;.format(cost))</span><br></pre></td></tr></table></figure><br>    <h2>turtle画五角星</h2><br>    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from turtle import *</span><br><span class="line">for i in  range(5):</span><br><span class="line">    fd(200)</span><br><span class="line">    right(144)</span><br><span class="line">done()</span><br></pre></td></tr></table></figure><br>    <h3>单词排序</h3><br>    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">lists = [(x)for x in &#x27;qwertyuiopasdfghjklzxcvbnm&#x27;]</span><br><span class="line">lists.sort()</span><br><span class="line">print(lists)</span><br></pre></td></tr></table></figure><br>    <h2>大小写转换</h2><br>    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">i = input()</span><br><span class="line">low = [&#x27;q&#x27;, &#x27;w&#x27;, &#x27;e&#x27;, &#x27;r&#x27;, &#x27;t&#x27;, &#x27;y&#x27;, &#x27;u&#x27;, &#x27;i&#x27;, &#x27;o&#x27;, &#x27;p&#x27;, &#x27;a&#x27;, &#x27;s&#x27;, &#x27;d&#x27;, &#x27;f&#x27;, &#x27;g&#x27;, &#x27;h&#x27;, &#x27;j&#x27;, &#x27;k&#x27;, &#x27;l&#x27;, &#x27;z&#x27;, &#x27;x&#x27;, &#x27;c&#x27;, &#x27;v&#x27;, &#x27;b&#x27;, &#x27;n&#x27;, &#x27;m&#x27;]</span><br><span class="line">up = [&#x27;Q&#x27;, &#x27;W&#x27;, &#x27;E&#x27;, &#x27;R&#x27;, &#x27;T&#x27;, &#x27;Y&#x27;, &#x27;U&#x27;, &#x27;I&#x27;, &#x27;O&#x27;, &#x27;P&#x27;, &#x27;A&#x27;, &#x27;S&#x27;, &#x27;D&#x27;, &#x27;F&#x27;, &#x27;G&#x27;, &#x27;H&#x27;, &#x27;J&#x27;, &#x27;K&#x27;, &#x27;L&#x27;, &#x27;Z&#x27;, &#x27;X&#x27;, &#x27;C&#x27;, &#x27;V&#x27;, &#x27;B&#x27;, &#x27;N&#x27;, &#x27;M&#x27;]</span><br><span class="line">for o in i:</span><br><span class="line">    if o in low:</span><br><span class="line">        for x in range(26):</span><br><span class="line">            if o == low[x]:</span><br><span class="line">                p = up[x]</span><br><span class="line">                print(p,end=&#x27;&#x27;)</span><br><span class="line">                </span><br><span class="line">    else:</span><br><span class="line">        for x in range(26):</span><br><span class="line">            if o == up[x]:</span><br><span class="line">                p = low[x]</span><br><span class="line">                print(p,end=&#x27;&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>    <h2>吃宵夜</h2><br>    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dict = &#123;&#125;</span><br><span class="line">print(&#x27;&#123;:*^30&#125;&#x27;.format(&#x27;走，去吃夜宵&#x27;))</span><br><span class="line">for i in [&#x27;小明&#x27;,&#x27;小红&#x27;,&#x27;小冰&#x27;]:</span><br><span class="line">    if input(i+&#x27;来了没:&#x27;) == &#x27;来了&#x27;:</span><br><span class="line">        dict[i] = dict.get(i,input(&#x27;带了多少钱:&#x27;))</span><br><span class="line">        ls = list(dict.items())</span><br><span class="line">        #ls.sort(key=lambda x:x[1],reverse=True)</span><br><span class="line">    else:</span><br><span class="line">            pass</span><br><span class="line">a = 0</span><br><span class="line">print(ls)</span><br><span class="line">for o in range(len(ls)):</span><br><span class="line">    a += int(ls[o][1])</span><br><span class="line">print(&#x27;一共来了&#123;&#125;,一共带了&#123;&#125;&#x27;.format(len(ls),a))</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 计算机二级证 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ftp的搭建与说明</title>
+      <link href="/2021/07/05/ftp%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AF%B4%E6%98%8E/"/>
+      <url>/2021/07/05/ftp%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AF%B4%E6%98%8E/</url>
+      
+        <content type="html"><![CDATA[<p>   <h2>关于ftp(在Linux中为vsftpd)</h2><br>    <blockquote><br>        <p style="text-indent: 2em">文件传输协议（File Transfer Protocol，FTP）是用于在网络上进行文件传输的一套标准协议，它工作在 OSI 模型的第七层， TCP 模型的第四层， 即应用层， 使用 TCP 传输而不是 UDP， 客户在和服务器建立连接前要经过一个“三次握手”的过程， 保证客户与服务器之间的连接是可靠的， 而且是面向连接， 为数据传输提供可靠保证。</p></p><p><p style="text-indent: 2em"> FTP允许用户以文件操作的方式（如文件的增、删、改、查、传送等）与另一主机相互通信。然而， 用户并不真正登录到自己想要存取的计算机上面而成为完全用户， 可用FTP程序访问远程资源， 实现用户往返传输文件、目录管理以及访问电子邮件等等， 即使双方计算机可能配有不同的操作系统和文件存储方式。</p><br>    &lt;/blockquote&gt;<br>    <h2>安装ftp</h2><br>    <b>注意:此处例子的演示机为Centos6.8</b><br>    <blockquote>        <ol>1.yum install vsftp -y #从yum源下载vsftp</ol>        <ol>2.vi /etc/vsftpd/vsftpd.conf #修改vsftp配置文件</ol>        <ol>3.在配置文件中将anonymous_enable=NO改为YES</ol>        <ol>4.service vsftpd start #开启vsftp</ol>        <ol>5.service iptables stop #关闭防火墙</ol>        <ol>这样别的电脑就可以访问vsftp了</ol>    </blockquote><br>    <h2>服务器安装ftp</h2><br>    <b>注意：演示机为Centos7.4</b><br>    <p style="text-indent: 2em;">按找上述步骤在局域网内是没有问题的，但是在云服务器上就有坑要填。因为云服务器有一个安全组的机制，然后从这个突破口去寻找解决方案。首先将局域网的配置步骤照搬到服务器上，启动发现无论是浏览器还是filezilla客户端都访问不了。在解决这个问题之前要了解ftp的两个工作模式：Port和Pasv。FTP连接一般会有两个连接，也就是会需要用到两个端口。一个服务器与客户端跟进行命令交互的，一个是进行数据传送的。那两种工作模式跟两个连接是怎么搭配起来工作的呢？</p><br>    <b>假设客户端为C，服务器端为S(以下简称C和S)：</b><br>    <blockquote>        <li>Port模式：当客户端C和服务端S连接起来后，C会发送一条命令告诉S：“我在本地打开了一个端口N等你进行数据连接”，当S收到这个Port命令后就会向C打开的那个端口N进行数据连接。S主动向C的某个端口进行数据连接，此乃主动模式</li>        <li>Pasv模式：当客户端C和服务端S连接起来后，S会发送一条命令告诉C：“我再本地打开了一个端口M你来连接我吧”，当C收到这个消息后就会向S的M端口发起数据连接。S打开端口被C主动连接，此乃被动模式</li>    </blockquote><br>    <p style="text-indent: 2em;">那我们应该使用哪种工作模式呢？答案是被动（默认工作模式就是被动）。为什么？很简单，你是在局域网内，你可以连接到云服务器的某个端口（前提是这个端口放开了），但是云服务器连接不到你的</p><br>    <p style="text-indent: 2em;">FTP模式与数据端口：无论是哪一种工作模式，首先在建立控制连接时候操作是一样的，都是由客户端（首先随机选取一个大于1024以上的端口）和FTP服务器的控制端口21建立连接，并通过该连接传输操作指令。两种工作模式的区别是什么呢？在于使用数据传输端口（ftp-data）方式。port mode由FTP服务器指定数据传输所使用的端口，默认值为20。pasv mode由FTP客户端决定数据传输端口，客户端向服务端发出连接请求包含了数据传输端口</p><br>    <blockquote>    <p>服务器安装ftp其实与普通安装ftp没太大差异，主要区别在服务器要多加两个配置,在vftpd.conf中增加以下内容：</p>        <li>pasv_enable=YES</li>        <li>pasv_min_port=30000</li>        <li>pasv_max_port=50000</li>        <li>最后在服务器的防火墙中放行30000-50000范围端口就欧克了</li>    </blockquote><br><br /><br>    <h2>附：vsftp配置文件说明</h2><br>    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 允许匿名访问</span><br><span class="line">anonymous_enable=YES</span><br><span class="line"># 不允许本地用户，如root用户登陆。默认允许</span><br><span class="line">local_enable=NO</span><br><span class="line">#设置本地用户登录所在的目录。默认配置文件中没有该配置项，本地用户登录FTP服务器后所在的目录为所登录用户的主目录，如：对于root用户，则为/root目录</span><br><span class="line"># local_root=/home/ftpuser</span><br><span class="line"># 本地用户上传文件权限</span><br><span class="line">local_umask=022</span><br><span class="line"># 匿名用户上传文件权限</span><br><span class="line">anon_umask=022</span><br><span class="line"># 允许写入操作，否则不能上传文件</span><br><span class="line">write_enable=YES</span><br><span class="line"># 允许匿名用户上传文件，需要配合write_enable=yes</span><br><span class="line">anon_upload_enable=YES</span><br><span class="line"># 控制匿名用户对文件和文件夹的删除和重命名(自己添加，没有该配置)</span><br><span class="line">anon_other_write_enable=YES</span><br><span class="line"># 允许匿名用户创建目录</span><br><span class="line">anon_mkdir_write_enable=YES</span><br><span class="line"># ftp工具连接成功提示</span><br><span class="line">ftpd_banner=Welcome to blah FTP service.</span><br><span class="line"># 所有用户均不能切换到上级目录</span><br><span class="line">chroot_local_user=YES</span><br><span class="line"># 是否启动限制用户的名单。YES为启用，NO禁用。默认禁用</span><br><span class="line">chroot_list_enable=NO</span><br><span class="line"># /etc/vsftpd/user_list文件不生效</span><br><span class="line">userlist_enable=NO</span><br><span class="line">#坑，添加以下配置。不添加此项，文件无法上传。报错：550 Permission denied。新版本vsftpd加入了安全需求，切根不允许写，要添加这个配置并设置为YES才可以</span><br><span class="line">allow_writeable_chroot=YES</span><br><span class="line">#匿名用户的根目录。这个非常重要</span><br><span class="line">anon_root=/usr/local/ftpdir</span><br><span class="line">#匿名用户不要密码就靠这个</span><br><span class="line">no_anon_password=YES</span><br><span class="line"># 匿名登录后的使用者</span><br><span class="line">ftp_username=ftpuser</span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络安全 </category>
+          
+          <category> 操作系统服务配置 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全 </tag>
+            
+            <tag> 操作系统服务配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2021/06/15/hello-world/"/>
+      <url>/2021/06/15/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
