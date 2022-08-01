@@ -1,3 +1,4 @@
+https://freeaas.com/manifest.json
 https://freeaas.com/posts/21e4893080a1/
 https://freeaas.com/categories/index.html
 https://freeaas.com/link/index.html
