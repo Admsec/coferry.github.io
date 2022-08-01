@@ -6,7 +6,7 @@
   <link href="https://freeaas.com/atom.xml" rel="self"/>
   
   <link href="https://freeaas.com/"/>
-  <updated>2022-07-31T04:06:30.000Z</updated>
+  <updated>2022-08-01T03:30:01.453Z</updated>
   <id>https://freeaas.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>个人哔哔-关于近期</title>
+    <link href="https://freeaas.com/posts/21e4893080a1/"/>
+    <id>https://freeaas.com/posts/21e4893080a1/</id>
+    <published>2022-08-01T03:16:17.000Z</published>
+    <updated>2022-08-01T03:30:01.453Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="关于近期"><a href="#关于近期" class="headerlink" title="关于近期"></a>关于近期</h2><p>近期的事情我只能用4个字来概括：祸不单行。</p><p>首先是我不小心手贱把博客给 rm -rf 了，备份的话倒是有，只不过是上一年9月多的，而且那个文章啊什么东西都很乱，魔改也是改源码实现的，而且博客版本是 Butterfly 3.3 （现在都 Butterfly 4.3了），所以我干脆重新建一个现在最新版的博客算了。然后如果重新建一个的话什么都要重新弄（包括友链啊图库啊什么的），现在心疼的是我水的那十多篇文章呀（也可能没有十多篇）。</p><ul><li>第一个心疼的就是文章，那已经不是文章了，是我在青春路上踏过的脚印；是我向我自己向未来证明，我还是学到了一点点东西的证明！</li><li>第二个零我心疼的就是评论，有一些大佬的评论和友链我做梦都舍不得删，恨不得抱着睡觉。评论里还有一些我自己画的饼，比如异步爬取某网站图片啊什么的……欸，罢了罢了。</li></ul><p>网络上事情的也就这些可以吐槽的了，没多少，但是都是心里带着刀，一边码字一边滴血。</p><p>其实最多想吐槽的事情最主要还是生活上的，不过吐槽就戛然而止吧，不想回忆了。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;关于近期&quot;&gt;&lt;a href=&quot;#关于近期&quot; class=&quot;headerlink&quot; title=&quot;关于近期&quot;&gt;&lt;/a&gt;关于近期&lt;/h2&gt;&lt;p&gt;近期的事情我只能用4个字来概括：祸不单行。&lt;/p&gt;
+&lt;p&gt;首先是我不小心手贱把博客给 rm -rf 了，备份的话倒是有，只不</summary>
+      
+    
+    
+    
+    <category term="个人哔哔" scheme="https://freeaas.com/categories/%E4%B8%AA%E4%BA%BA%E5%93%94%E5%93%94/"/>
+    
+    
+    <category term="个人哔哔" scheme="https://freeaas.com/tags/%E4%B8%AA%E4%BA%BA%E5%93%94%E5%93%94/"/>
+    
+  </entry>
   
   <entry>
     <title>操作系统安全配置</title>
